@@ -3,7 +3,7 @@ Adding angular :
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 ```
 
-------------------------------------------------------------------------------------------<br>
+---
 
 The ng-app directive tells AngularJS that the <div> element is the "owner" of an AngularJS application.
 
@@ -62,8 +62,9 @@ $scope.someValue = 'Hello';                 //javascipt
 
 ng-controller
 
-angular js directive that defines the controller. right side of the controller is the name of the javascript function it is referencing 
-----------------------------------------------------------------------------------------------------------------------------
+<p>angular js directive that defines the controller. right side of the controller is the name of the javascript function it is referencing</p>
+
+---
 
 scope
 
@@ -72,7 +73,7 @@ In case of array of scope variable
  <li ng-repeat="x in names">{{x}}</li>           markup
  $scope.names = ["Emil", "Tobias", "Linus"];     javascript
 ```
----------------------------------------------------------------------------------------------------------------------------
+---
  AngularJS Filters
  
  Filters can be added to expressions by using the pipe character |, followed by a filter.
@@ -125,6 +126,81 @@ angular.module('myApp', []).controller('namesCtrl', function($scope) {
 });
 </script>
 ```
-----------------------------------------------------------------------------------------------------------------------------
+---
+<h2>Services</h2>
 
-  
+In order to use the service in the controller, it must be defined as a dependency.
+
+Location Service
+```
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $location) {
+    $scope.myUrl = $location.absUrl();
+});
+```
+http Service
+```
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $http.get("welcome.htm").then(function (response) {
+        $scope.myWelcome = response.data;
+    });
+});
+```
+Timeout Service
+```
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $timeout) {
+    $scope.myHeader = "Hello World!";
+    $timeout(function () {
+        $scope.myHeader = "How are you today?";
+    }, 2000);
+});
+```
+Interval Service
+```
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $interval) {
+    $scope.theTime = new Date().toLocaleTimeString();
+    $interval(function () {
+        $scope.theTime = new Date().toLocaleTimeString();
+    }, 1000);
+});
+```
+
+Service with a pipe
+
+```
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="namesCtrl">
+    
+    <ul >
+<li ng-repeat="x in counts">{{x | myFormat}}</li>
+</ul>
+</div>
+
+<script>
+    var app = angular.module('myApp', []);   
+    app.service('hexafy', function() {
+    this.myFunc = function (x) {
+        return x.toString(16);
+    }
+    });
+    app.controller('namesCtrl', function($scope) {
+        $scope.counts =[35,45,777];
+    });
+    app.filter('myFormat',['hexafy', function(hexafy) {
+        return function(x) {
+            return hexafy.myFunc(x);
+        };
+       }]); 
+   
+</script>
+
+</body>
+</html>
+```
