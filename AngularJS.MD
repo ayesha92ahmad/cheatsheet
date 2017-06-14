@@ -1,15 +1,28 @@
-Adding angular :
+Table of Contents:
+1. Adding angular 
+2. directives
+3. ng-controller
+4. 
+
+Adding angular
 ```
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 ```
 
 ---
+Directives
 
-The ng-app directive tells AngularJS that the <div> element is the "owner" of an AngularJS application.
+ng-app directive tells AngularJS that the <div> element is the "owner" of an AngularJS application.
 
-The ng-model directive binds the value of the input field to the application variable name.
+ng-model directive binds the value of the input field to the application variable name.
 
-The ng-bind directive binds the innerHTML of the <p> element to the application variable name.
+ng-bind directive binds the innerHTML of the <p> element to the application variable name.
+
+ng-show and ng-hide – these directives show or hide and element. This is achieved by setting styles in the site’s CSS.
+
+ng-class – this allows class attributes to be dynamically loaded.
+
+ng-animate – this directive provides support for animation, including Javascript, CSS3 transitions, and CSS3 keyframe animations.
 
 ```
 <!DOCTYPE html>
@@ -203,4 +216,131 @@ Service with a pipe
 
 </body>
 </html>
+```
+Accessing $http properties
+
+```
+app.controller('myCtrl', function($scope, $http) {
+  $http.get("welcome.htm")                                -.delete(),.get(),.head(),.jsonp(),.patch(),.post(),.put()  .then(function(response) {
+      $scope.content = response.data;
+      $scope.statuscode = response.status;
+      $scope.statustext = response.statusText;            
+  });
+});
+```
+http and JSON
+
+```
+<body>
+
+<div ng-app="myApp" ng-controller="customersCtrl"> 
+
+<ul>
+  <li ng-repeat="x in myData">
+    {{ x.Name + ', ' + x.Country }}
+  </li>
+</ul>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+  $http.get("customers.php").then(function (response) {
+      $scope.myData = response.data.records;
+  });
+});
+</script>
+
+</body>
+
+```
+Angular Tables
+
+Using ng-repeat directive and ng-if with $odd and $even we change the styles for alternating rows 
+```
+
+<table>
+  <tr ng-repeat="x in names">
+    <td ng-if="$odd" style="background-color:#DDA0DD">
+    {{ x.Name }}</td>
+    <td ng-if="$even">
+    {{ x.Name }}</td>
+    <td ng-if="$odd" style="background-color:#DDA0DD">
+    {{ x.Country }}</td>
+    <td ng-if="$even">
+    {{ x.Country }}</td>
+  </tr>
+</table>
+```
+AngularJS Select Boxes
+
+Dropdowns made with ng-options allows the selected value to be an object, while dropdowns made from ng-repeat has to be a string
+Using ng-options
+```javascript
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.cars = {
+        car01 : "Ford",
+        car02 : "Fiat",
+        car03 : "Volvo"
+    }
+});
+```
+```
+<select ng-model="selectedCar" ng-options="y for (x, y) in cars">
+</select>
+
+<h1>You selected: {{selectedCar}}</h1>
+```
+Using ng-repeat
+```
+<select>
+<option ng-repeat="x in names">{{x}}</option>
+</select>
+```
+
+AngularJS and DB and PHP
+
+```php
+<?php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+
+$conn = new mysqli("myServer", "myUser", "myPassword", "Northwind");
+
+$result = $conn->query("SELECT CompanyName, City, Country FROM Customers");
+
+$outp = "";
+while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
+    if ($outp != "") {$outp .= ",";}
+    $outp .= '{"Name":"'  . $rs["CompanyName"] . '",';
+    $outp .= '"City":"'   . $rs["City"]        . '",';
+    $outp .= '"Country":"'. $rs["Country"]     . '"}';
+}
+$outp ='{"records":['.$outp.']}';
+$conn->close();
+
+echo($outp);
+?>
+```
+```
+<div ng-app="myApp" ng-controller="customersCtrl">
+
+<table>
+  <tr ng-repeat="x in names">
+    <td>{{ x.Name }}</td>
+    <td>{{ x.Country }}</td>
+  </tr>
+</table>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+    $http.get("customers_mysql.php")
+    .then(function (response) {$scope.names = response.data.records;});
+});
+</script>
 ```
