@@ -12,17 +12,42 @@ Adding angular
 ---
 Directives
 
-ng-app directive tells AngularJS that the <div> element is the "owner" of an AngularJS application.
+**ng-app** directive tells AngularJS that the <div> element is the "owner" of an AngularJS application.
 
-ng-model directive binds the value of the input field to the application variable name.
+**ng-model** directive binds the value of the input field to the application variable name.
 
-ng-bind directive binds the innerHTML of the <p> element to the application variable name.
+**ng-bind** directive binds the innerHTML of the <p> element to the application variable name.
 
-ng-show and ng-hide – these directives show or hide and element. This is achieved by setting styles in the site’s CSS.
+**ng-show** and **ng-hide**  directives show or hide and element. This is achieved by setting styles in the site’s CSS.
 
-ng-class – this allows class attributes to be dynamically loaded.
+**ng-class** directive allows class attributes to be dynamically loaded.
 
-ng-animate – this directive provides support for animation, including Javascript, CSS3 transitions, and CSS3 keyframe animations.
+**ng-animate** directive provides support for animation, including Javascript, CSS3 transitions, and CSS3 keyframe animations.
+
+**ng-disabled** directive binds AngularJS application data to the disabled attribute of HTML elements.
+
+Events
+
+**
+ng-blur
+ng-change
+ng-click
+ng-copy
+ng-cut
+ng-dblclick
+ng-focus
+ng-keydown
+ng-keypress
+ng-keyup
+ng-mousedown
+ng-mouseenter
+ng-mouseleave
+ng-mousemove
+ng-mouseover
+ng-mouseup
+ng-paste
+**
+
 
 ```
 <!DOCTYPE html>
@@ -344,3 +369,60 @@ app.controller('customersCtrl', function($scope, $http) {
 });
 </script>
 ```
+
+Angular bind
+If there are more than one angular apps directive. angular js only binds one automatically and the other has to be binded manually using angular.bootstrap along with id
+```javascript
+angular.bootstrap(myDiv2, ["MyModuleB"]);
+```
+
+Angular Include
+
+```
+<div ng-include="'myFile.htm'"></div>
+```
+
+Form validation
+
+Input fields have the following states:
+
+$untouched The field has not been touched yet
+$touched The field has been touched
+$pristine The field has not been modified yet
+$dirty The field has been modified
+$invalid The field content is not valid
+$valid The field content is valid
+They are all properties of the input field, and are either true or false.
+
+Forms have the following states:
+
+$pristine No fields have been modified yet
+$dirty One or more have been modified
+$invalid The form content is not valid
+$valid The form content is valid
+$submitted The form is submitted
+
+Angular API
+
+API|Description
+--|--
+angular.lowercase()|	Converts a string to lowercase
+angular.uppercase()|	Converts a string to uppercase
+angular.isString()|	Returns true if the reference is a string
+angular.isNumber()|	Returns true if the reference is a number
+
+```
+<div ng-app="myApp" ng-controller="myCtrl">
+<p>{{ x1 }}</p>
+<p>{{ x2 }}</p>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+$scope.x1 = "JOHN";
+$scope.x2 = angular.lowercase($scope.x1);
+});
+```
+
+</script>
