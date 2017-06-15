@@ -8,7 +8,15 @@ Adding angular
 ```
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 ```
+Adding angular animate
+```
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
 
+```
+Adding angular route
+```
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+```
 ---
 Directives
 
@@ -423,6 +431,173 @@ app.controller('myCtrl', function($scope) {
 $scope.x1 = "JOHN";
 $scope.x2 = angular.lowercase($scope.x1);
 });
+</script>
 ```
 
+Include Cross Domains
+By default, the ng-include directive does not allow you to include files from other domains.
+
+```
+<body ng-app="myApp">
+
+<div ng-include="'https://tryit.w3schools.com/angular_include.php'"></div>
+
+<script>
+var app = angular.module('myApp', [])
+app.config(function($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'https://tryit.w3schools.com/**'
+    ]);
+});
 </script>
+</body>
+```
+`ngRoute` module helps your application to become a Single Page Application.
+
+If you want to navigate to different pages in your application, but you also want the application to be a SPA (Single Page Application), with no page reloading, you can use the ngRoute module.
+
+The ngRoute module routes your application to different pages without reloading the entire application.
+Angular route module
+```
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+```
+Add the dependency
+```
+var app = angular.module("myApp", ["ngRoute"]);
+```
+```
+<body ng-app="myApp">
+
+<p><a href="#/!">Main</a></p>
+
+<a href="#!red">Red</a>
+<a href="#!green">Green</a>
+<a href="#!blue">Blue</a>
+
+<div ng-view></div>
+
+<script>
+var app = angular.module("myApp", ["ngRoute"]);
+app.config(function($routeProvider) {
+    $routeProvider
+    .when("/", {
+        templateUrl : "main.htm"
+    })
+    .when("/red", {
+        templateUrl : "red.htm"
+    })
+    .when("/green", {
+        templateUrl : "green.htm"
+    })
+    .when("/blue", {
+        templateUrl : "blue.htm"
+    });
+});
+</script>
+
+<p>Click on the links to navigate to "red.htm", "green.htm", "blue.htm", or back to "main.htm"</p>
+</body>
+```
+
+```
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+<body ng-app="myApp">
+
+<p><a href="#/!">Main</a></p>
+
+<a href="#!banana">Banana</a>
+<a href="#!tomato">Tomato</a>
+
+<p>Click on the links to change the content.</p>
+
+<p>Use the "otherwise" method to define what to display when none of the links are clicked.</p>
+
+<div ng-view></div>
+
+<script>
+var app = angular.module("myApp", ["ngRoute"]);
+app.config(function($routeProvider) {
+    $routeProvider
+    .when("/banana", {
+        template : "<h1>Banana</h1><p>Bananas contain around 75% water.</p>"
+    })
+    .when("/tomato", {
+        template : "<h1>Tomato</h1><p>Tomatoes contain around 95% water.</p>"
+    })
+    .otherwise({
+        template : "<h1>Nothing</h1><p>Nothing has been selected</p>"
+    });
+});
+</script>
+
+</body>
+</html>
+
+```
+
+
+More directives
+
+Directive|	Description
+--|--
+ng-app|	Defines the root element of an application.
+ng-bind|	Binds the content of an HTML element to application data.
+ng-bind-html|	Binds the innerHTML of an HTML element to application data, and also removes dangerous code from the HTML string.
+ng-bind-template|	Specifies that the text content should be replaced with a template.
+ng-blur|	Specifies a behavior on blur events.
+ng-change|	Specifies an expression to evaluate when content is being changed by the user.
+ng-checked|	Specifies if an element is checked or not.
+ng-class|	Specifies CSS classes on HTML elements.
+ng-class-even|	Same as ng-class, but will only take effect on even rows.
+ng-class-odd|	Same as ng-class, but will only take effect on odd rows.
+ng-click|	Specifies an expression to evaluate when an element is being clicked.
+ng-cloak|	Prevents flickering when your application is being loaded.
+ng-controller|	Defines the controller object for an application.
+ng-copy|	Specifies a behavior on copy events.
+ng-csp|	Changes the content security policy.
+ng-cut|	Specifies a behavior on cut events.
+ng-dblclick|	Specifies a behavior on double-click events.
+ng-disabled|	Specifies if an element is disabled or not.
+ng-focus|	Specifies a behavior on focus events.
+ng-form|	Specifies an HTML form to inherit controls from.
+ng-hide|	Hides or shows HTML elements.
+ng-href|	Specifies a url for the <a> element.
+ng-if|	Removes the HTML element if a condition is false.
+ng-include|	Includes HTML in an application.
+ng-init|	Defines initial values for an application.
+ng-jq|	Specifies that the application must use a library, like jQuery.
+ng-keydown|	Specifies a behavior on keydown events.
+ng-keypress|	Specifies a behavior on keypress events.
+ng-keyup|	Specifies a behavior on keyup events.
+ng-list|	Converts text into a list (array).
+ng-maxlength|	Specifies the maximum number of characters allowed in the input field.
+ng-minlength|	Specifies the minimum number of characters allowed in the input field.
+ng-model|	Binds the value of HTML controls to application data.
+ng-model-options|	Specifies how updates in the model are done.
+ng-mousedown|	Specifies a behavior on mousedown events.
+ng-mouseenter|	Specifies a behavior on mouseenter events.
+ng-mouseleave|	Specifies a behavior on mouseleave events.
+ng-mousemove|	Specifies a behavior on mousemove events.
+ng-mouseover|	Specifies a behavior on mouseover events.
+ng-mouseup|	Specifies a behavior on mouseup events.
+ng-non-bindable|	Specifies that no data binding can happen in this element, or its children.
+ng-open	Specifies| the open attribute of an element.
+ng-options|	Specifies <options> in a <select> list.
+ng-paste|	Specifies a behavior on paste events.
+ng-pluralize|	Specifies a message to display according to en-us localization rules.
+ng-readonly|	Specifies the readonly attribute of an element.
+ng-repeat|	Defines a template for each data in a collection.
+ng-required|	Specifies the required attribute of an element.
+ng-selected|	Specifies the selected attribute of an element.
+ng-show|	Shows or hides HTML elements.
+ng-src|	Specifies the src attribute for the <img> element.
+ng-srcset|	Specifies the srcset attribute for the <img> element.
+ng-style|	Specifies the style attribute for an element.
+ng-submit|	Specifies expressions to run on onsubmit events.
+ng-switch|	Specifies a condition that will be used to show/hide child elements.
+ng-transclude|	Specifies a point to insert transcluded elements.
+ng-value|	Specifies the value of an input element.
