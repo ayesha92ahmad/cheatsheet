@@ -24,3 +24,14 @@ Two different kind of syntaxes:
   1. Block statements eg. data-sly-test 
   2. Expression language ${ and }
   
+---
+
+
+---
+Include an image component using sly
+
+
+
+
+
+
