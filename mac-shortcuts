@@ -1,2 +1,4 @@
 Forward delete - fn + delete
 Switching between different windows of application - command + `
+open new tab -command + t
+close current tab - command + w
